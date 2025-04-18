@@ -24,9 +24,9 @@ jobs:
 
       - name: Disable all workflows
         run: |
-          workflows=$(git ls-files | grep -E '\.yml$|\.yaml$')
+          workflows=$(git ls-files .github/workflows | grep -E '\.yml$|\.yaml$')
           for workflow in $workflows; do
-            workflow_name=$(basename $workflow)
+            workflow_name=$(basename "$workflow")
             gh workflow disable "$workflow_name" || true
           done
         env:
@@ -39,7 +39,7 @@ jobs:
     uses: skills/exercise-toolkit/.github/workflows/start-exercise.yml@v0.3.0
     with:
       exercise-title: "Secure your Repository's Supply Chain"
-      intro-message: "Welcome to secure your repository's supply chain, understand dependencies in your environment, know about vulnerabilities in those dependencies and patch them. 💻✨"
+      intro-message: "Let's explore how to secure your repository's supply chain, understand dependencies in your environment, and find vulnerabilities in those dependencies and patch them. 💻✨"
 
   post_next_step_content:
     name: Post next step content
@@ -61,7 +61,7 @@ jobs:
 
       - name: Build comment - add step content
         id: build-comment
-        uses: skills/action-text-variables@v1
+        uses: skills/action-text-variables@v2
         with:
           template-file: ${{ env.STEP_1_FILE }}
           template-vars: |
